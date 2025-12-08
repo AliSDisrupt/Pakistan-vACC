@@ -27,6 +27,9 @@ interface Pilot {
   heading: number;
   latitude: number;
   longitude: number;
+  etaMinutes?: number | null;
+  etaTime?: string | null;
+  distanceToArrival?: number | null;
 }
 
 interface LiveMapProps {
