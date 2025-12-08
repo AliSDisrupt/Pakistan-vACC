@@ -206,7 +206,7 @@ export default function LiveMap({ controllers, pilots }: LiveMapProps) {
         // Draw route line from departure to current position, and from current position to arrival
         const depCoords = getAirportCoordinates(pilot.departure);
         const arrCoords = getAirportCoordinates(pilot.arrival);
-        const currentPos = [pilot.latitude, pilot.longitude];
+        const currentPos: [number, number] = [pilot.latitude, pilot.longitude];
 
         // Line from departure to current position (if we have departure coordinates)
         if (depCoords) {
