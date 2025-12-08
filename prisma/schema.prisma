@@ -1,0 +1,66 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  PILOT
+  ATC
+}
+
+model ControllerSession {
+  id        String   @id @default(cuid())
+  cid       Int?
+  callsign  String
+  name      String?  // Controller name
+  fir       String?
+  start     DateTime
+  end       DateTime
+  minutes   Int
+  createdAt DateTime @default(now())
+
+  @@index([callsign])
+  @@index([start])
+  @@index([cid])
+}
+
+model PilotSession {
+  id         String   @id @default(cuid())
+  cid        Int?
+  callsign   String
+  name       String?
+  dep        String?
+  arr        String?
+  aircraft   String?
+  fir        String?
+  inPakistan Boolean  @default(false)
+  start      DateTime
+  end        DateTime
+  minutes    Int
+  createdAt  DateTime @default(now())
+
+  @@index([dep, arr])
+  @@index([start])
+  @@index([cid])
+}
+
+model OpenSession {
+  id         String   @id @default(cuid())
+  role       Role
+  cid        Int?
+  callsign   String
+  fir        String?
+  dep        String?
+  arr        String?
+  inPakistan Boolean  @default(false)
+  startedAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+
+  @@index([role, callsign])
+}
+
+

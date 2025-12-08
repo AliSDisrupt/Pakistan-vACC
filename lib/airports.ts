@@ -1,0 +1,80 @@
+// Pakistan airport coordinates
+export const PAKISTAN_AIRPORTS: Record<string, { lat: number; lon: number; name: string }> = {
+  // Major airports
+  OPKC: { lat: 24.9065, lon: 67.1607, name: "Karachi (Jinnah International)" },
+  OPLA: { lat: 31.5216, lon: 74.4036, name: "Lahore (Allama Iqbal)" },
+  OPRN: { lat: 33.6167, lon: 73.0992, name: "Islamabad (Benazir Bhutto)" },
+  OPSD: { lat: 24.8936, lon: 67.1981, name: "Karachi (Jinnah Terminal)" },
+  OPGD: { lat: 25.2333, lon: 62.3294, name: "Gwadar" },
+  OPGT: { lat: 25.2333, lon: 62.3294, name: "Gwadar" },
+  OPMF: { lat: 30.1917, lon: 71.4194, name: "Multan" },
+  OPSK: { lat: 27.7222, lon: 68.7917, name: "Sukkur" },
+  OPPS: { lat: 33.9939, lon: 71.5144, name: "Peshawar" },
+  OPQT: { lat: 30.2511, lon: 66.9378, name: "Quetta" },
+  OPSR: { lat: 32.0486, lon: 72.6653, name: "Sargodha" },
+  OPSW: { lat: 24.9065, lon: 67.1607, name: "Karachi (Secondary)" },
+  OPGW: { lat: 25.2333, lon: 62.3294, name: "Gwadar" },
+  OPMG: { lat: 30.1917, lon: 71.4194, name: "Multan" },
+  OPSH: { lat: 27.7222, lon: 68.7917, name: "Sukkur" },
+  OPPG: { lat: 33.9939, lon: 71.5144, name: "Peshawar" },
+  OPRQ: { lat: 30.2511, lon: 66.9378, name: "Quetta" },
+  OPSG: { lat: 32.0486, lon: 72.6653, name: "Sargodha" },
+  // FIR centers (approximate)
+  OPKR: { lat: 24.9065, lon: 67.1607, name: "Karachi FIR" },
+  OPLR: { lat: 31.5216, lon: 74.4036, name: "Lahore FIR" },
+};
+
+// Common international airports (for routes to/from Pakistan)
+export const INTERNATIONAL_AIRPORTS: Record<string, { lat: number; lon: number; name: string }> = {
+  // Middle East
+  OMDB: { lat: 25.2532, lon: 55.3657, name: "Dubai" },
+  OMAA: { lat: 24.4330, lon: 54.6511, name: "Abu Dhabi" },
+  OEDF: { lat: 24.9583, lon: 46.6983, name: "Riyadh" },
+  OEDR: { lat: 26.2658, lon: 50.1520, name: "Dammam" },
+  OJAI: { lat: 31.7225, lon: 35.9933, name: "Amman" },
+  OTBH: { lat: 25.2611, lon: 51.5651, name: "Doha" },
+  OKBK: { lat: 29.2267, lon: 47.9689, name: "Kuwait" },
+  OBBI: { lat: 26.2708, lon: 50.6336, name: "Bahrain" },
+  // Asia
+  VIDP: { lat: 28.5562, lon: 77.1000, name: "Delhi" },
+  VABB: { lat: 19.0887, lon: 72.8679, name: "Mumbai" },
+  VOBL: { lat: 12.9499, lon: 77.6682, name: "Bangalore" },
+  VTBS: { lat: 13.6811, lon: 100.7473, name: "Bangkok" },
+  WSSS: { lat: 1.3644, lon: 103.9915, name: "Singapore" },
+  VHHH: { lat: 22.3080, lon: 113.9185, name: "Hong Kong" },
+  ZBAA: { lat: 40.0801, lon: 116.5845, name: "Beijing" },
+  ZSPD: { lat: 31.1434, lon: 121.8052, name: "Shanghai" },
+  // Europe
+  EGLL: { lat: 51.4700, lon: -0.4543, name: "London Heathrow" },
+  EGKK: { lat: 51.1537, lon: -0.1821, name: "London Gatwick" },
+  LFPG: { lat: 49.0097, lon: 2.5479, name: "Paris CDG" },
+  EDDF: { lat: 50.0379, lon: 8.5622, name: "Frankfurt" },
+  EHAM: { lat: 52.3105, lon: 4.7683, name: "Amsterdam" },
+  LEMD: { lat: 40.4839, lon: -3.5680, name: "Madrid" },
+  LIRF: { lat: 41.8003, lon: 12.2389, name: "Rome" },
+  // North America
+  KJFK: { lat: 40.6413, lon: -73.7781, name: "New York JFK" },
+  KLAX: { lat: 33.9425, lon: -118.4081, name: "Los Angeles" },
+  CYYZ: { lat: 43.6772, lon: -79.6306, name: "Toronto" },
+  // Add more as needed
+};
+
+// Get airport coordinates (checks both Pakistan and international)
+export function getAirportCoordinates(icao: string): { lat: number; lon: number; name: string } | null {
+  if (!icao || icao === "N/A") return null;
+  const code = icao.toUpperCase();
+  return PAKISTAN_AIRPORTS[code] || INTERNATIONAL_AIRPORTS[code] || null;
+}
+
+// Extract airport code from callsign (e.g., "OPLA_APP" -> "OPLA")
+export function getAirportFromCallsign(callsign: string): string | null {
+  const match = callsign.match(/^(OP[A-Z0-9]{2,})_/);
+  return match ? match[1] : null;
+}
+
+// Get coordinates for a callsign
+export function getControllerCoordinates(callsign: string): { lat: number; lon: number; name: string } | null {
+  const airport = getAirportFromCallsign(callsign);
+  if (!airport) return null;
+  return PAKISTAN_AIRPORTS[airport] || null;
+}

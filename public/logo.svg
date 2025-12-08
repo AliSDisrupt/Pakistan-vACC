@@ -1,0 +1,58 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dark green crescent gradient with metallic effect -->
+    <linearGradient id="crescentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a3d1a;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#1a7a2e;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#2d9f4f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a3d1a;stop-opacity:1" />
+    </linearGradient>
+    <!-- Golden star gradient with metallic shine -->
+    <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#ffed4e;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#fff8dc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#daa520;stop-opacity:1" />
+    </linearGradient>
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Shadow for depth -->
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Crescent Moon - upward pointing, open to the left -->
+  <path d="M 35 60 
+           A 25 25 0 1 1 35 15 
+           A 20 20 0 0 0 35 60 Z" 
+        fill="url(#crescentGradient)" 
+        stroke="#ffffff" 
+        stroke-width="0.8" 
+        filter="url(#glow)"
+        opacity="0.95"/>
+  
+  <!-- Five-pointed Star - positioned upper-left of crescent -->
+  <path d="M 48 25 
+           L 50.5 33 
+           L 58.5 33 
+           L 52 38 
+           L 54.5 46 
+           L 48 41 
+           L 41.5 46 
+           L 44 38 
+           L 37.5 33 
+           L 45.5 33 Z" 
+        fill="url(#starGradient)" 
+        stroke="#1a1a1a" 
+        stroke-width="0.5" 
+        filter="url(#glow)"
+        opacity="0.98"/>
+</svg>
+

@@ -1,0 +1,143 @@
+{
+  "lastUpdated": "2025-12-08T19:36:06.545Z",
+  "sessions": [
+    {
+      "id": "pilot-ALK1180-2025-12-08T17:46:37.562Z",
+      "type": "pilot",
+      "cid": 1921182,
+      "name": "tharaka VCBI",
+      "callsign": "ALK1180",
+      "departure": "OPLA",
+      "arrival": "OPPS",
+      "aircraft": "A320",
+      "startTime": "2025-12-08T17:46:37.562Z",
+      "endTime": "2025-12-08T19:18:23.664Z",
+      "durationMinutes": 92,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPLR_CTR-2025-12-08T17:19:01.792Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPLR_CTR",
+      "frequency": "127.500",
+      "facility": "CTR",
+      "startTime": "2025-12-08T17:19:01.792Z",
+      "endTime": "2025-12-08T19:09:37.606Z",
+      "durationMinutes": 111,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPLA_ATIS-2025-12-08T18:28:54.074Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPLA_ATIS",
+      "frequency": "126.300",
+      "facility": "TWR",
+      "startTime": "2025-12-08T18:28:54.074Z",
+      "endTime": "2025-12-08T19:08:27.173Z",
+      "durationMinutes": 40,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPPS_ATIS-2025-12-08T17:19:19.215Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPPS_ATIS",
+      "frequency": "126.700",
+      "facility": "TWR",
+      "startTime": "2025-12-08T17:19:19.215Z",
+      "endTime": "2025-12-08T19:08:27.173Z",
+      "durationMinutes": 109,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPMT_ATIS-2025-12-08T17:19:01.792Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPMT_ATIS",
+      "frequency": "126.250",
+      "facility": "TWR",
+      "startTime": "2025-12-08T17:19:01.792Z",
+      "endTime": "2025-12-08T19:08:27.173Z",
+      "durationMinutes": 109,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPIS_ATIS-2025-12-08T17:19:01.792Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPIS_ATIS",
+      "frequency": "126.200",
+      "facility": "TWR",
+      "startTime": "2025-12-08T17:19:01.792Z",
+      "endTime": "2025-12-08T19:08:27.173Z",
+      "durationMinutes": 109,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "pilot-DJ2-2025-12-08T16:43:52.447Z",
+      "type": "pilot",
+      "cid": 1603777,
+      "name": "Abdullah Hanif OPMT",
+      "callsign": "DJ2",
+      "departure": "VGBR",
+      "arrival": "OPMT",
+      "aircraft": "C700",
+      "startTime": "2025-12-08T16:43:52.447Z",
+      "endTime": "2025-12-08T18:32:17.097Z",
+      "durationMinutes": 108,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPLA_ATIS-2025-12-08T16:43:52.447Z",
+      "type": "controller",
+      "cid": 1887963,
+      "name": "1887963",
+      "callsign": "OPLA_ATIS",
+      "frequency": "126.300",
+      "facility": "TWR",
+      "startTime": "2025-12-08T16:43:52.447Z",
+      "endTime": "2025-12-08T18:23:06.454Z",
+      "durationMinutes": 99,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPFA_ATIS-2025-12-08T17:19:19.215Z",
+      "type": "controller",
+      "cid": 1542642,
+      "name": "Abdul Kareem",
+      "callsign": "OPFA_ATIS",
+      "frequency": "126.625",
+      "facility": "TWR",
+      "startTime": "2025-12-08T17:19:19.215Z",
+      "endTime": "2025-12-08T18:22:48.642Z",
+      "durationMinutes": 63,
+      "date": "2025-12-08"
+    },
+    {
+      "id": "atc-OPLA_APP-2025-12-08T16:43:52.447Z",
+      "type": "controller",
+      "cid": 1887963,
+      "name": "1887963",
+      "callsign": "OPLA_APP",
+      "frequency": "121.300",
+      "facility": "APP",
+      "startTime": "2025-12-08T16:43:52.447Z",
+      "endTime": "2025-12-08T18:22:48.642Z",
+      "durationMinutes": 99,
+      "date": "2025-12-08"
+    }
+  ],
+  "stats": {
+    "totalControllerMinutes": 372,
+    "totalPilotMinutes": 200,
+    "totalControllerSessions": 2,
+    "totalPilotSessions": 2
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "lastUpdated": "2025-12-08T19:36:06.545Z",
+  "sessions": {
+    "pilot-QTR99G": {
+      "id": "pilot-QTR99G",
+      "type": "pilot",
+      "cid": 1493081,
+      "name": "Syed Zain Ejaz",
+      "callsign": "QTR99G",
+      "departure": "OTHH",
+      "arrival": "OPIS",
+      "aircraft": "B77W",
+      "startTime": "2025-12-08T17:02:41.721Z",
+      "lastSeen": "2025-12-08T19:36:06.543Z"
+    },
+    "pilot-OMA020": {
+      "id": "pilot-OMA020",
+      "type": "pilot",
+      "cid": 1488681,
+      "name": "ROBERT TAMAYO SKPE",
+      "callsign": "OMA020",
+      "departure": "OIIE",
+      "arrival": "OPKC",
+      "aircraft": "A333",
+      "startTime": "2025-12-08T18:02:22.898Z",
+      "lastSeen": "2025-12-08T19:36:06.543Z"
+    },
+    "pilot-OMA323": {
+      "id": "pilot-OMA323",
+      "type": "pilot",
+      "cid": 1732396,
+      "name": "1732396 ==>",
+      "callsign": "OMA323",
+      "departure": "OOMS",
+      "arrival": "OPKC",
+      "aircraft": "B38M",
+      "startTime": "2025-12-08T19:16:29.393Z",
+      "lastSeen": "2025-12-08T19:36:06.543Z"
+    }
+  }
+}
