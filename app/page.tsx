@@ -57,6 +57,9 @@ interface LivePilot {
   duration: string;
   latitude: number;
   longitude: number;
+  etaMinutes?: number | null;
+  etaTime?: string | null;
+  distanceToArrival?: number | null;
 }
 
 interface LiveData {
@@ -974,7 +977,7 @@ function LiveTab() {
         </h2>
         {pilots?.list?.length ? (
           <DataTable
-            headers={["Callsign", "Pilot Name", "VATSIM ID", "Route", "Aircraft", "Alt / GS", "Online"]}
+            headers={["Callsign", "Pilot Name", "VATSIM ID", "Route", "Aircraft", "Alt / GS", "ETA", "Online"]}
             rows={pilots.list.map((p) => [
               <Badge key="cs" color="#2196f3">{p.callsign}</Badge>,
               <span key="name" style={{ color: "#fff", fontWeight: 500 }}>{p.name || "Unknown"}</span>,
@@ -987,6 +990,20 @@ function LiveTab() {
               <span key="ac" style={{ fontFamily: "monospace" }}>{p.aircraft}</span>,
               <span key="alt" style={{ fontFamily: "monospace", color: "#94a3b8" }}>
                 FL{Math.round(p.altitude / 100)} / {p.groundspeed}kt
+              </span>,
+              <span key="eta" style={{ color: p.etaTime ? "#00c853" : "#64748b", fontWeight: 600, fontFamily: "monospace" }}>
+                {p.etaTime ? (
+                  <span>
+                    {p.etaTime}
+                    {p.etaMinutes !== null && p.etaMinutes !== undefined && (
+                      <span style={{ fontSize: 11, color: "#94a3b8", marginLeft: 4 }}>
+                        ({p.etaMinutes}m)
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  "N/A"
+                )}
               </span>,
               <span key="dur" style={{ color: "#2196f3", fontWeight: 600 }}>{p.duration}</span>,
             ])}

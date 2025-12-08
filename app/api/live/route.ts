@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { updateSessions, loadSessions, loadHistory } from "@/lib/cache";
 import { loadRoster } from "@/lib/roster";
-import { getControllerCoordinates } from "@/lib/airports";
+import { getControllerCoordinates, calculateETA } from "@/lib/airports";
 
 // Rating names mapping
 const RATING_NAMES: Record<number, string> = {
@@ -232,22 +232,30 @@ export async function GET() {
     const pkPilotsRaw = data.pilots.filter(isPkPilot);
     
     // Pilots don't need type/resident info - just basic flight data
-    const pkPilots = pkPilotsRaw.map((p) => ({
-      cid: p.cid,
-      name: p.name,
-      callsign: p.callsign,
-      departure: p.flight_plan?.departure || "N/A",
-      arrival: p.flight_plan?.arrival || "N/A",
-      aircraft: p.flight_plan?.aircraft_short || p.flight_plan?.aircraft_faa || "N/A",
-      altitude: p.altitude,
-      groundspeed: p.groundspeed,
-      heading: p.heading,
-      logonTime: p.logon_time,
-      minutesOnline: getMinutesOnline(p.logon_time),
-      duration: formatDuration(getMinutesOnline(p.logon_time)),
-      latitude: p.latitude,
-      longitude: p.longitude,
-    }));
+    const pkPilots = pkPilotsRaw.map((p) => {
+      const arrival = p.flight_plan?.arrival || "N/A";
+      const eta = calculateETA(p.latitude, p.longitude, arrival, p.groundspeed);
+      
+      return {
+        cid: p.cid,
+        name: p.name,
+        callsign: p.callsign,
+        departure: p.flight_plan?.departure || "N/A",
+        arrival: arrival,
+        aircraft: p.flight_plan?.aircraft_short || p.flight_plan?.aircraft_faa || "N/A",
+        altitude: p.altitude,
+        groundspeed: p.groundspeed,
+        heading: p.heading,
+        logonTime: p.logon_time,
+        minutesOnline: getMinutesOnline(p.logon_time),
+        duration: formatDuration(getMinutesOnline(p.logon_time)),
+        latitude: p.latitude,
+        longitude: p.longitude,
+        etaMinutes: eta.etaMinutes,
+        etaTime: eta.etaTime,
+        distanceToArrival: eta.distance,
+      };
+    });
 
     // Update session cache and track changes
     const { added, removed } = await updateSessions(

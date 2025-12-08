@@ -78,3 +78,64 @@ export function getControllerCoordinates(callsign: string): { lat: number; lon: 
   if (!airport) return null;
   return PAKISTAN_AIRPORTS[airport] || null;
 }
+
+// Calculate distance between two coordinates (Haversine formula) in kilometers
+export function calculateDistance(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number {
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+// Calculate ETA in minutes based on distance and groundspeed
+export function calculateETA(
+  currentLat: number,
+  currentLon: number,
+  arrivalIcao: string,
+  groundspeed: number
+): { etaMinutes: number | null; etaTime: string | null; distance: number | null } {
+  if (!arrivalIcao || arrivalIcao === "N/A" || groundspeed <= 0) {
+    return { etaMinutes: null, etaTime: null, distance: null };
+  }
+
+  const arrivalCoords = getAirportCoordinates(arrivalIcao);
+  if (!arrivalCoords) {
+    return { etaMinutes: null, etaTime: null, distance: null };
+  }
+
+  const distance = calculateDistance(
+    currentLat,
+    currentLon,
+    arrivalCoords.lat,
+    arrivalCoords.lon
+  );
+
+  // Convert groundspeed from knots to km/h (1 knot = 1.852 km/h)
+  const speedKmh = groundspeed * 1.852;
+  
+  // Calculate time in hours, then convert to minutes
+  const timeHours = distance / speedKmh;
+  const etaMinutes = Math.round(timeHours * 60);
+
+  // Calculate ETA time in Zulu (UTC)
+  const now = new Date();
+  const etaDate = new Date(now.getTime() + etaMinutes * 60000);
+  // Format as Zulu time (UTC) - HH:MMZ format
+  const hours = etaDate.getUTCHours().toString().padStart(2, '0');
+  const minutes = etaDate.getUTCMinutes().toString().padStart(2, '0');
+  const etaTime = `${hours}:${minutes}Z`;
+
+  return { etaMinutes, etaTime, distance: Math.round(distance) };
+}

@@ -152,6 +152,13 @@ export default function LiveMap({ controllers, pilots }: LiveMapProps) {
           icon: icon,
         }).addTo(map);
 
+        const etaDisplay = pilot.etaMinutes !== null && pilot.etaMinutes !== undefined 
+          ? `<span style="font-size: 12px;"><strong>ETA:</strong> <span style="color: #00c853; font-weight: 600;">${pilot.etaTime}</span> (${pilot.etaMinutes} min)</span><br/>`
+          : "";
+        const distanceDisplay = pilot.distanceToArrival !== null && pilot.distanceToArrival !== undefined
+          ? `<span style="font-size: 12px;"><strong>Distance:</strong> ${pilot.distanceToArrival} km</span><br/>`
+          : "";
+        
         const popupContent = `
           <div style="color: #000; font-family: system-ui; min-width: 200px;">
             <strong style="color: #2196f3; font-size: 14px;">✈️ ${pilot.callsign}</strong><br/>
@@ -160,7 +167,9 @@ export default function LiveMap({ controllers, pilots }: LiveMapProps) {
             <span style="font-size: 12px;"><strong>Aircraft:</strong> ${pilot.aircraft}</span><br/>
             <span style="font-size: 12px;"><strong>Altitude:</strong> FL${Math.round(pilot.altitude / 100)}</span><br/>
             <span style="font-size: 12px;"><strong>Heading:</strong> ${Math.round(pilot.heading || 0)}°</span><br/>
-            <span style="font-size: 12px;"><strong>Speed:</strong> ${pilot.groundspeed || 0} kt</span>
+            <span style="font-size: 12px;"><strong>Speed:</strong> ${pilot.groundspeed || 0} kt</span><br/>
+            ${distanceDisplay}
+            ${etaDisplay}
           </div>
         `;
         marker.bindPopup(popupContent);
