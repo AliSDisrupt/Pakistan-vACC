@@ -54,8 +54,8 @@ async function main() {
           totalControllerMinutes: member.totalControllerMinutes || 0,
           totalPilotMinutes: member.totalPilotMinutes || 0,
           sessionsCount: member.sessionsCount || 0,
-          lastCallsign: member.lastCallsign || null,
-          lastSeen: member.lastSeen || null,
+          lastCallsign: member.lastCallsign || undefined,
+          lastSeen: member.lastSeen || undefined,
         };
         
         // Try to get last callsign
