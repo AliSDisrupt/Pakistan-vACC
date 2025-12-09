@@ -9,7 +9,8 @@
     "migrate": "prisma migrate deploy",
     "ingest:live": "tsx scripts/ingest_live.ts",
     "ingest:live:continuous": "tsx scripts/ingest_live_with_cache.ts",
-    "backfill:atc": "tsx scripts/backfill_atc.ts"
+    "backfill:atc": "tsx scripts/backfill_atc.ts",
+    "sync:db-to-cache": "tsx scripts/sync_db_to_cache.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.19.0",

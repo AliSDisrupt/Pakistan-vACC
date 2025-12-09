@@ -22,7 +22,7 @@ interface CachedSession {
   lastSeen: string;
 }
 
-interface HistoricalSession {
+export interface HistoricalSession {
   id: string;
   type: "controller" | "pilot";
   cid: number;

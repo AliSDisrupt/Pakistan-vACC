@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-12-08T20:10:39.175Z",
+  "lastUpdated": "2025-12-08T20:22:03.103Z",
   "sessions": {
     "pilot-QTR99G": {
       "id": "pilot-QTR99G",
@@ -11,7 +11,7 @@
       "arrival": "OPIS",
       "aircraft": "B77W",
       "startTime": "2025-12-08T17:02:41.721Z",
-      "lastSeen": "2025-12-08T20:10:39.171Z"
+      "lastSeen": "2025-12-08T20:22:03.101Z"
     },
     "pilot-OMA020": {
       "id": "pilot-OMA020",
@@ -23,7 +23,7 @@
       "arrival": "OPKC",
       "aircraft": "A333",
       "startTime": "2025-12-08T18:02:22.898Z",
-      "lastSeen": "2025-12-08T20:10:39.171Z"
+      "lastSeen": "2025-12-08T20:22:03.101Z"
     },
     "pilot-OMA323": {
       "id": "pilot-OMA323",
@@ -35,7 +35,7 @@
       "arrival": "OPKC",
       "aircraft": "B38M",
       "startTime": "2025-12-08T19:16:29.393Z",
-      "lastSeen": "2025-12-08T20:10:39.171Z"
+      "lastSeen": "2025-12-08T20:22:03.101Z"
     },
     "pilot-DHX557": {
       "id": "pilot-DHX557",
@@ -47,7 +47,19 @@
       "arrival": "OPLA",
       "aircraft": "B763",
       "startTime": "2025-12-08T19:44:02.315Z",
-      "lastSeen": "2025-12-08T20:10:39.171Z"
+      "lastSeen": "2025-12-08T20:22:03.101Z"
+    },
+    "pilot-JZR507": {
+      "id": "pilot-JZR507",
+      "type": "pilot",
+      "cid": 1895720,
+      "name": "Thomas Hendley EGKK",
+      "callsign": "JZR507",
+      "departure": "OKKK",
+      "arrival": "OPKC",
+      "aircraft": "A320",
+      "startTime": "2025-12-08T20:19:24.343Z",
+      "lastSeen": "2025-12-08T20:22:03.101Z"
     }
   }
 }
