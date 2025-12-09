@@ -1021,7 +1021,7 @@ function LiveTab() {
         </h2>
         {pilots?.list?.length ? (
           <DataTable
-            headers={["Callsign", "Pilot Name", "VATSIM ID", "Route", "Aircraft", "Alt / GS", "ETA", "Online"]}
+            headers={["Callsign", "Pilot Name", "VATSIM ID", "Route", "Aircraft", "Alt / GS", "Distance", "ETA", "Online"]}
             rows={pilots.list.map((p) => [
               <Badge key="cs" color="#2196f3">{p.callsign}</Badge>,
               <span key="name" style={{ color: "#fff", fontWeight: 500 }}>{p.name || "Unknown"}</span>,
@@ -1034,6 +1034,11 @@ function LiveTab() {
               <span key="ac" style={{ fontFamily: "monospace" }}>{p.aircraft}</span>,
               <span key="alt" style={{ fontFamily: "monospace", color: "#94a3b8" }}>
                 FL{Math.round(p.altitude / 100)} / {p.groundspeed}kt
+              </span>,
+              <span key="dist" style={{ fontFamily: "monospace", color: "#fbbf24", fontWeight: 600 }}>
+                {p.distanceToArrival !== null && p.distanceToArrival !== undefined 
+                  ? `${p.distanceToArrival} km`
+                  : "N/A"}
               </span>,
               <span key="eta" style={{ color: p.etaTime ? "#00c853" : "#64748b", fontWeight: 600, fontFamily: "monospace" }}>
                 {p.etaTime ? (
