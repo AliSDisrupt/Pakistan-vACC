@@ -162,7 +162,10 @@ export async function updateSessions(
         startTime: nowIso,
         lastSeen: nowIso,
       };
-      added.push(`🎧 ${c.callsign} (${c.name})`);
+      added.push({
+        message: `🎧 ${c.callsign} (${c.name})`,
+        timestamp: nowIso,
+      });
       
       // Auto-detect and add to Pakistan roster
       if (c.cid) {
