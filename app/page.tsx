@@ -564,7 +564,7 @@ function MemberDetailModal({ cid, onClose }: { cid: number; onClose: () => void 
               <div key={dateGroup.date} style={{ borderBottom: "1px solid #334155", paddingBottom: 16, marginBottom: 16 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                   <h4 style={{ color: "#fff", fontSize: 16, margin: 0 }}>
-                    {new Date(dateGroup.date).toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                    {new Date(dateGroup.date + "T00:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                   </h4>
                   <span style={{ fontFamily: "monospace", color: "#2196f3", fontWeight: 600 }}>
                     {dateGroup.totalHours} ({dateGroup.sessions.length} sessions)
@@ -598,7 +598,7 @@ function MemberDetailModal({ cid, onClose }: { cid: number; onClose: () => void 
                             {s.callsign} {isAtis && <span style={{ color: "#94a3b8", fontSize: 11 }}>(ATIS)</span>}
                           </span>
                           <span style={{ color: "#94a3b8", fontSize: 13 }}>
-                            {new Date(s.startTime).toLocaleTimeString()} - {new Date(s.endTime).toLocaleTimeString()}
+                            {new Date(s.startTime).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", hour12: false })}Z - {new Date(s.endTime).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", hour12: false })}Z
                           </span>
                         </div>
                         <span style={{ fontFamily: "monospace", color: "#2196f3", fontWeight: 600 }}>{s.hours}</span>
@@ -913,7 +913,7 @@ function LiveTab() {
         </div>
         {data?.updated && (
           <span style={{ color: "#64748b", fontSize: 12 }}>
-            Updated: {new Date(data.updated).toLocaleTimeString()} • Auto-refresh: 15s
+            Updated: {new Date(data.updated).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false })}Z • Auto-refresh: 15s
           </span>
         )}
       </div>
@@ -1209,7 +1209,7 @@ function HistoryTab() {
               s.name,
               s.type === "controller" ? `${s.facility} @ ${s.frequency}` : `${s.departure} → ${s.arrival}`,
               <span key="dur" style={{ fontWeight: 600 }}>{s.duration}</span>,
-              new Date(s.endTime).toLocaleString(),
+              new Date(s.endTime).toLocaleString("en-US", { timeZone: "UTC", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }) + "Z",
             ])}
           />
         ) : (
@@ -1302,9 +1302,9 @@ function PilotDatabaseTab() {
               headers={["Date", "Callsign", "Pilot Name", "VATSIM ID", "Route", "Aircraft", "Duration", "Source"]}
               rows={pilots.map((p: any) => [
                 <span key="date" style={{ fontFamily: "monospace", color: "#fbbf24" }}>
-                  {new Date(p.date).toLocaleDateString()}
+                  {new Date(p.date + "T00:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", year: "numeric", month: "2-digit", day: "2-digit" })}
                   <div style={{ fontSize: 11, color: "#64748b" }}>
-                    {new Date(p.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    {new Date(p.startTime).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", hour12: false })}Z
                   </div>
                 </span>,
                 <Badge key="cs" color="#2196f3">{p.callsign}</Badge>,
@@ -1425,7 +1425,7 @@ function MemberLookupTab() {
             <InfoCard label="Pilot Rating" value={member.pilotRatingName} />
             <InfoCard label="Division" value={`${member.division}`} />
             <InfoCard label="Subdivision" value={member.subdivision || "None"} highlight={member.subdivision === "PAK"} />
-            <InfoCard label="Registered" value={new Date(member.registrationDate).toLocaleDateString()} />
+            <InfoCard label="Registered" value={new Date(member.registrationDate).toLocaleDateString("en-US", { timeZone: "UTC", year: "numeric", month: "2-digit", day: "2-digit" })} />
             <InfoCard label="Status" value={member.suspended ? "Suspended" : "Active"} highlight={!member.suspended} />
           </div>
         </div>

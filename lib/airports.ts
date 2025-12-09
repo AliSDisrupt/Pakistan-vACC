@@ -159,10 +159,10 @@ export function calculateETA(
   // Calculate ETA time in Zulu (UTC) - this is the landing time
   const now = new Date();
   const etaDate = new Date(now.getTime() + etaMinutes * 60000);
-  // Format as Zulu time (UTC) - HH:MMZ format
+  // Format as Zulu time (UTC) - HH:MM format (no Z suffix)
   const hours = etaDate.getUTCHours().toString().padStart(2, '0');
   const minutes = etaDate.getUTCMinutes().toString().padStart(2, '0');
-  const etaTime = `${hours}:${minutes}Z`;
+  const etaTime = `${hours}:${minutes}`;
 
   return { etaMinutes, etaTime, distance: Math.round(distanceNm * 10) / 10 }; // Round to 1 decimal place
 }
