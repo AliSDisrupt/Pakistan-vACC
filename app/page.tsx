@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR, { mutate } from "swr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart,
@@ -203,6 +203,23 @@ type GroupBy = "day" | "week" | "month" | "year";
 
 export default function Page() {
   const [tab, setTab] = useState<Tab>("live");
+  const [zuluTime, setZuluTime] = useState<string>("");
+
+  // Update Zulu time every second
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const hours = now.getUTCHours().toString().padStart(2, "0");
+      const minutes = now.getUTCMinutes().toString().padStart(2, "0");
+      const seconds = now.getUTCSeconds().toString().padStart(2, "0");
+      setZuluTime(`${hours}:${minutes}:${seconds}Z`);
+    };
+
+    updateTime(); // Set immediately
+    const interval = setInterval(updateTime, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <main style={{ minHeight: "100vh", backgroundColor: "#0f172a" }}>
@@ -215,37 +232,64 @@ export default function Page() {
         }}
       >
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 12,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  overflow: "hidden",
+                }}
+              >
+                <img 
+                  src="https://images-ext-1.discordapp.net/external/DXpgrO7r3AVVFrJcIP5FirV98zgd7gmCZ2lWeCQDM-g/https/vatsimpakistan.com/assets/images/favicon.png?format=webp&quality=lossless&width=1038&height=959" 
+                  alt="VATSIM Pakistan Logo" 
+                  style={{ 
+                    width: 56, 
+                    height: 56,
+                    objectFit: "contain"
+                  }} 
+                />
+              </div>
+              <div>
+                <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: "#fff" }}>
+                  Pakistan VATSIM Dashboard
+                </h1>
+                <p style={{ margin: 0, color: "#94a3b8", fontSize: 14 }}>
+                  Live tracking • Auto-refresh every 15s • Session caching enabled
+                </p>
+              </div>
+            </div>
+            
+            {/* Zulu Time Display */}
             <div
               style={{
-                width: 56,
-                height: 56,
-                borderRadius: 12,
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                overflow: "hidden",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                gap: 4,
               }}
             >
-              <img 
-                src="https://images-ext-1.discordapp.net/external/DXpgrO7r3AVVFrJcIP5FirV98zgd7gmCZ2lWeCQDM-g/https/vatsimpakistan.com/assets/images/favicon.png?format=webp&quality=lossless&width=1038&height=959" 
-                alt="VATSIM Pakistan Logo" 
-                style={{ 
-                  width: 56, 
-                  height: 56,
-                  objectFit: "contain"
-                }} 
-              />
-            </div>
-            <div>
-              <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0, color: "#fff" }}>
-                Pakistan VATSIM Dashboard
-              </h1>
-              <p style={{ margin: 0, color: "#94a3b8", fontSize: 14 }}>
-                Live tracking • Auto-refresh every 15s • Session caching enabled
-              </p>
+              <div style={{ color: "#94a3b8", fontSize: 12, fontWeight: 500 }}>
+                ZULU TIME
+              </div>
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 24,
+                  fontWeight: 600,
+                  color: "#00c853",
+                  letterSpacing: 2,
+                }}
+              >
+                {zuluTime}
+              </div>
             </div>
           </div>
 
