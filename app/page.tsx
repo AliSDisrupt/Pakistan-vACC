@@ -262,7 +262,7 @@ export default function Page() {
                   Pakistan VATSIM Dashboard
                 </h1>
                 <p style={{ margin: 0, color: "#94a3b8", fontSize: 14 }}>
-                  Live tracking • Auto-refresh every 15s • Session caching enabled
+                  Live tracking • Auto-refresh every 5s • Session caching enabled
                 </p>
               </div>
             </div>
@@ -913,7 +913,7 @@ function LiveTab() {
         </div>
         {data?.updated && (
           <span style={{ color: "#64748b", fontSize: 12 }}>
-            Updated: {new Date(data.updated).toLocaleTimeString()} • Auto-refresh: 15s
+            Updated: {new Date(data.updated).toLocaleTimeString()} • Auto-refresh: 5s
           </span>
         )}
       </div>
