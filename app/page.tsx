@@ -1037,7 +1037,7 @@ function LiveTab() {
               </span>,
               <span key="dist" style={{ fontFamily: "monospace", color: "#fbbf24", fontWeight: 600 }}>
                 {p.distanceToArrival !== null && p.distanceToArrival !== undefined 
-                  ? `${p.distanceToArrival} km`
+                  ? `${p.distanceToArrival} nm`
                   : "N/A"}
               </span>,
               <span key="eta" style={{ color: p.etaTime ? "#00c853" : "#64748b", fontWeight: 600, fontFamily: "monospace" }}>

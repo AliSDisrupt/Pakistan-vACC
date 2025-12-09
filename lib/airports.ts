@@ -116,24 +116,28 @@ export function calculateETA(
     return { etaMinutes: null, etaTime: null, distance: null };
   }
 
-  const distance = calculateDistance(
+  const distanceKm = calculateDistance(
     currentLat,
     currentLon,
     arrivalCoords.lat,
     arrivalCoords.lon
   );
 
+  // Convert distance from km to nautical miles (1 nm = 1.852 km)
+  const distanceNm = distanceKm / 1.852;
+
   // Convert groundspeed from knots to km/h (1 knot = 1.852 km/h)
   const speedKmh = groundspeed * 1.852;
   
   // Calculate time in hours, then convert to minutes
-  const timeHours = distance / speedKmh;
+  const timeHours = distanceKm / speedKmh;
   let etaMinutes = Math.round(timeHours * 60);
 
   // Add approach and landing time (10-15 minutes depending on distance)
-  // For flights > 50km away, add 15 minutes for approach/landing
-  // For flights < 50km, add 10 minutes (already in approach phase)
-  const approachTime = distance > 50 ? 15 : 10;
+  // For flights > 27nm away, add 15 minutes for approach/landing
+  // For flights < 27nm, add 10 minutes (already in approach phase)
+  // 27nm ≈ 50km
+  const approachTime = distanceNm > 27 ? 15 : 10;
   etaMinutes += approachTime;
 
   // Calculate ETA time in Zulu (UTC) - this is the landing time
@@ -144,5 +148,5 @@ export function calculateETA(
   const minutes = etaDate.getUTCMinutes().toString().padStart(2, '0');
   const etaTime = `${hours}:${minutes}Z`;
 
-  return { etaMinutes, etaTime, distance: Math.round(distance) };
+  return { etaMinutes, etaTime, distance: Math.round(distanceNm * 10) / 10 }; // Round to 1 decimal place
 }
