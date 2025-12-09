@@ -99,6 +99,26 @@ export function calculateDistance(
   return R * c;
 }
 
+// Calculate distance between two coordinates (Haversine formula) directly in nautical miles
+export function calculateDistanceNm(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number {
+  const R = 3440; // Earth's radius in nautical miles (6371 km / 1.852 = 3440 nm)
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 // Calculate ETA in minutes based on distance and groundspeed
 // Includes approach and landing time (typically 10-15 minutes)
 export function calculateETA(
@@ -116,21 +136,17 @@ export function calculateETA(
     return { etaMinutes: null, etaTime: null, distance: null };
   }
 
-  const distanceKm = calculateDistance(
+  // Calculate distance directly in nautical miles
+  const distanceNm = calculateDistanceNm(
     currentLat,
     currentLon,
     arrivalCoords.lat,
     arrivalCoords.lon
   );
 
-  // Convert distance from km to nautical miles (1 nm = 1.852 km)
-  const distanceNm = distanceKm / 1.852;
-
-  // Convert groundspeed from knots to km/h (1 knot = 1.852 km/h)
-  const speedKmh = groundspeed * 1.852;
-  
-  // Calculate time in hours, then convert to minutes
-  const timeHours = distanceKm / speedKmh;
+  // Calculate time in hours using distance in nm and speed in knots
+  // Time (hours) = Distance (nm) / Speed (knots)
+  const timeHours = distanceNm / groundspeed;
   let etaMinutes = Math.round(timeHours * 60);
 
   // Add approach and landing time (10-15 minutes depending on distance)
