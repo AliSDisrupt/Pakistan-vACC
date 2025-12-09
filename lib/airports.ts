@@ -4,6 +4,7 @@ export const PAKISTAN_AIRPORTS: Record<string, { lat: number; lon: number; name:
   OPKC: { lat: 24.9065, lon: 67.1607, name: "Karachi (Jinnah International)" },
   OPLA: { lat: 31.5216, lon: 74.4036, name: "Lahore (Allama Iqbal)" },
   OPRN: { lat: 33.6167, lon: 73.0992, name: "Islamabad (Benazir Bhutto)" },
+  OPIS: { lat: 33.5606, lon: 72.8517, name: "Islamabad International" },
   OPSD: { lat: 24.8936, lon: 67.1981, name: "Karachi (Jinnah Terminal)" },
   OPGD: { lat: 25.2333, lon: 62.3294, name: "Gwadar" },
   OPGT: { lat: 25.2333, lon: 62.3294, name: "Gwadar" },
