@@ -893,7 +893,7 @@ function RosterTab() {
 }
 
 function LiveTab() {
-  const { data, isLoading } = useSWR<LiveData>("/api/live", fetcher, { refreshInterval: 15000 });
+  const { data, isLoading } = useSWR<LiveData>("/api/live", fetcher, { refreshInterval: 5000 });
 
   if (isLoading) {
     return <LoadingState message="Loading live data from VATSIM..." />;
