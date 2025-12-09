@@ -37,6 +37,7 @@ export interface HistoricalSession {
   endTime: string;
   durationMinutes: number;
   date: string; // YYYY-MM-DD for grouping
+  removedAt?: string; // Timestamp when session was removed (for recent activity)
 }
 
 interface SessionCache {
@@ -137,7 +138,7 @@ export async function updateSessions(
   const sessionCache = loadSessions();
   const historyCache = loadHistory();
   
-  const added: string[] = [];
+  const added: Array<{ message: string; timestamp: string }> = [];
   const removed: HistoricalSession[] = [];
   
   // Track which sessions we've seen this update
@@ -196,7 +197,10 @@ export async function updateSessions(
         startTime: nowIso,
         lastSeen: nowIso,
       };
-      added.push(`✈️ ${p.callsign} (${p.departure}→${p.arrival})`);
+      added.push({
+        message: `✈️ ${p.callsign} (${p.departure}→${p.arrival})`,
+        timestamp: nowIso,
+      });
       
       // Auto-detect and add to Pakistan roster if pilot
       if (p.cid) {
@@ -271,7 +275,10 @@ export async function updateSessions(
           console.error("Failed to save session to database:", err);
         });
         
-        removed.push(historicalSession);
+        removed.push({
+          ...historicalSession,
+          removedAt: nowIso, // Add timestamp when session was removed
+        });
         delete sessionCache.sessions[id];
       }
     }

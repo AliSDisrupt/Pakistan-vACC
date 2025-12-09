@@ -77,8 +77,8 @@ interface LiveData {
     list: LivePilot[];
   };
   recentChanges?: {
-    added: string[];
-    removed: string[];
+    added: Array<{ message: string; timestamp: string }>;
+    removed: Array<{ message: string; timestamp: string }>;
   };
   cachedStats?: {
     totalControllerHours: string;
@@ -964,13 +964,25 @@ function LiveTab() {
       {/* Recent Changes */}
       {(data?.recentChanges?.added?.length || data?.recentChanges?.removed?.length) ? (
         <div style={{ background: "#1e293b", borderRadius: 12, padding: 16, marginBottom: 24, border: "1px solid #334155" }}>
-          <h3 style={{ color: "#fff", fontSize: 14, margin: "0 0 12px" }}>Recent Activity</h3>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <h3 style={{ color: "#fff", fontSize: 14, margin: "0 0 12px", fontWeight: 600 }}>Recent Activity</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {data?.recentChanges?.added?.map((a, i) => (
-              <span key={i} style={{ color: "#00c853", fontSize: 13 }}>+ {a}</span>
+              <div key={`added-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ color: "#00c853", fontSize: 16 }}>+</span>
+                <span style={{ color: "#00c853", fontSize: 13, flex: 1 }}>{a.message}</span>
+                <span style={{ color: "#64748b", fontSize: 11, fontFamily: "monospace" }}>
+                  {new Date(a.timestamp).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false })}Z
+                </span>
+              </div>
             ))}
             {data?.recentChanges?.removed?.map((r, i) => (
-              <span key={i} style={{ color: "#f87171", fontSize: 13 }}>- {r}</span>
+              <div key={`removed-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ color: "#f87171", fontSize: 16 }}>-</span>
+                <span style={{ color: "#f87171", fontSize: 13, flex: 1 }}>{r.message}</span>
+                <span style={{ color: "#64748b", fontSize: 11, fontFamily: "monospace" }}>
+                  {new Date(r.timestamp).toLocaleTimeString("en-US", { timeZone: "UTC", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false })}Z
+                </span>
+              </div>
             ))}
           </div>
         </div>

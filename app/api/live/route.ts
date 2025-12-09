@@ -309,8 +309,11 @@ export async function GET() {
         list: pkPilots.sort((a, b) => b.minutesOnline - a.minutesOnline),
       },
       recentChanges: {
-        added,
-        removed: removed.map((r) => `${r.type === "controller" ? "🎧" : "✈️"} ${r.callsign} (${r.durationMinutes}min)`),
+        added: added.map((a) => ({ message: a.message, timestamp: a.timestamp })),
+        removed: removed.map((r) => ({
+          message: `${r.type === "controller" ? "🎧" : "✈️"} ${r.callsign} (${r.durationMinutes}min)`,
+          timestamp: r.removedAt || r.endTime,
+        })),
       },
       cachedStats: {
         totalControllerHours: formatHoursMinutesSeconds(recalculatedControllerMinutes),
