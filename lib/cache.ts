@@ -131,7 +131,7 @@ export async function updateSessions(
     arrival: string;
     aircraft: string;
   }>
-): Promise<{ added: string[]; removed: HistoricalSession[] }> {
+): Promise<{ added: Array<{ message: string; timestamp: string }>; removed: HistoricalSession[] }> {
   const now = new Date();
   const nowIso = now.toISOString();
   
