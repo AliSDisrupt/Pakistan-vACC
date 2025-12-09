@@ -100,6 +100,7 @@ export function calculateDistance(
 }
 
 // Calculate ETA in minutes based on distance and groundspeed
+// Includes approach and landing time (typically 10-15 minutes)
 export function calculateETA(
   currentLat: number,
   currentLon: number,
@@ -127,9 +128,15 @@ export function calculateETA(
   
   // Calculate time in hours, then convert to minutes
   const timeHours = distance / speedKmh;
-  const etaMinutes = Math.round(timeHours * 60);
+  let etaMinutes = Math.round(timeHours * 60);
 
-  // Calculate ETA time in Zulu (UTC)
+  // Add approach and landing time (10-15 minutes depending on distance)
+  // For flights > 50km away, add 15 minutes for approach/landing
+  // For flights < 50km, add 10 minutes (already in approach phase)
+  const approachTime = distance > 50 ? 15 : 10;
+  etaMinutes += approachTime;
+
+  // Calculate ETA time in Zulu (UTC) - this is the landing time
   const now = new Date();
   const etaDate = new Date(now.getTime() + etaMinutes * 60000);
   // Format as Zulu time (UTC) - HH:MMZ format

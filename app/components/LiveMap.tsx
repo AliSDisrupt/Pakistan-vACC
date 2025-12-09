@@ -156,7 +156,7 @@ export default function LiveMap({ controllers, pilots }: LiveMapProps) {
         }).addTo(map);
 
         const etaDisplay = pilot.etaMinutes !== null && pilot.etaMinutes !== undefined 
-          ? `<span style="font-size: 12px;"><strong>ETA:</strong> <span style="color: #00c853; font-weight: 600;">${pilot.etaTime}</span> (${pilot.etaMinutes} min)</span><br/>`
+          ? `<span style="font-size: 12px;"><strong>Landing ETA:</strong> <span style="color: #00c853; font-weight: 600;">${pilot.etaTime}</span> (${pilot.etaMinutes} min)</span><br/>`
           : "";
         const distanceDisplay = pilot.distanceToArrival !== null && pilot.distanceToArrival !== undefined
           ? `<span style="font-size: 12px;"><strong>Distance:</strong> ${pilot.distanceToArrival} km</span><br/>`

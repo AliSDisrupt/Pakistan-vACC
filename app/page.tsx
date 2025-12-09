@@ -1038,10 +1038,10 @@ function LiveTab() {
               <span key="eta" style={{ color: p.etaTime ? "#00c853" : "#64748b", fontWeight: 600, fontFamily: "monospace" }}>
                 {p.etaTime ? (
                   <span>
-                    {p.etaTime}
+                    <span style={{ fontSize: 14, fontWeight: 700 }}>{p.etaTime}</span>
                     {p.etaMinutes !== null && p.etaMinutes !== undefined && (
-                      <span style={{ fontSize: 11, color: "#94a3b8", marginLeft: 4 }}>
-                        ({p.etaMinutes}m)
+                      <span style={{ fontSize: 11, color: "#94a3b8", marginLeft: 4, display: "block" }}>
+                        Landing in {p.etaMinutes}m
                       </span>
                     )}
                   </span>
